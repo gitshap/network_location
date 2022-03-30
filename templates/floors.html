@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+</script>
+
+{% block content %}
+
+<form>
+    {% csrf_token %}
+    {% for comp in computer %}
+    <div class="flex flex-col"  id="results">
+        {{ comp.pc_name }}
+
+        <button hx-post="{% url 'ping' comp.id %}" hx-swap="outerHTML" hx-target="#results"
+            class="bg-green-300 p-2 rounded shadow-sm text-center">Check ping</button>
+        <div>
+            {% if comp.is_reachable %}
+            PC is reachable
+            {% else %}
+            PC is not reachable
+
+            {% endif %}
+        </div>
+        {% endfor %}
+</form>
+</div>
+{% endblock content %}

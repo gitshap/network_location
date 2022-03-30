@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+</script>
+
+{% block content %}
+<div class="flex flex-col" id="results">
+
+    {% for switch in switches %}
+
+    <div class="flex flex-col">
+        {{ switch.name }}
+        <hr>
+        Computers
+
+        {% for computer in switch.computer_set.all %}
+
+        <form>
+            {% csrf_token %}
+
+            <div class="flex flex-col" id="results">
+                <div class="flex flex-col"> {{ computer.pc_name }}</div>
+                <button hx-post="{% url 'ping' computer.id %}" hx-swap="outerHTML" hx-target="#results"
+                    hx-indicator=".htmx-indicator" class="bg-green-300 p-2 rounded shadow-sm text-center">Check
+                    ping</button>
+                <div>
+
+                    {% if computer.is_reachable %}
+                    <div id="reachable">
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 bg-green-900 text-yellow-300 rounded"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg> Reachable
+
+
+                        </div>
+                        {% else %}
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 bg-red-600 text-yellow-300 rounded"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg> Not Reachable
+
+
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+        </form>
+        {% endfor %}
+        <hr>
+    </div>
+
+
+
+
+    {% endfor %}
+
+    <span class="htmx-indicator text-lg font-bold text-green-900" hx-swap="innerHTML" hx-target="#reachable">
+        Pinging, please wait.
+    </span>
+
+
+</div>
+{% endblock content %}

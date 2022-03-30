@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+</script>
+
+{% block content %}
+
+<div class="flex">
+    <div>
+        <h1>Main</h1>
+        {% for main in main_building %}
+
+        <ul>
+            <a href="{% url 'floor_level' main.id %}"><li>{{ main.floor }}</li></a>
+        </ul>
+
+        {% endfor %}
+    </div>
+
+    <div>
+        <h1>SHS</h1>
+
+        {% for shs in shs_building %}
+
+        <ul>
+            <a href="{% url 'floor_level' shs.id %}"><li>{{ shs.floor }}</li></a>
+
+        </ul>
+
+        {% endfor %}
+
+
+    </div>
+
+    <div>
+        <h1>Annex</h1>
+
+        {% for annex in annex_building %}
+
+        <ul>
+            <a href="{% url 'floor_level' annex.id %}"><li>{{ annex.floor }}</li></a>
+
+        </ul>
+
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock content %}
