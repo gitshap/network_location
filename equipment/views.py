@@ -7,8 +7,8 @@ import os
 def home(request):
     template_name = 'home.html'
     main_building = Floor.objects.filter(building=1)
-    annex_building = Floor.objects.filter(building=2)
-    shs_building = Floor.objects.filter(building=3)
+    annex_building = Floor.objects.filter(building=3)
+    shs_building = Floor.objects.filter(building=2)
 
     context = {
         'main_building': main_building,

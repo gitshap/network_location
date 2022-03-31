@@ -7,25 +7,26 @@
 
 {% block content %}
 
-<div class="flex">
-    <div>
-        <h1>Main</h1>
+<div class="flex items-center justify-center">
+   <div class="flex pt-52 space-x-16">
+    <div class="bg-white p-16 shadow-lg text-2xl rounded-md space-y-2">
+        <h1 class="text-green-900 font-bold bg-yellow-300 text-center rounded-md p-2">Main</h1>
         {% for main in main_building %}
 
         <ul>
-            <a href="{% url 'floor_level' main.id %}"><li>{{ main.floor }}</li></a>
+            <a href="{% url 'floor_level' main.id %}"><li class="text-green-900 text-center font-bold">{{ main.floor }}</li></a>
         </ul>
 
         {% endfor %}
     </div>
 
-    <div>
-        <h1>SHS</h1>
+    <div class="bg-white p-16 shadow-lg text-2xl rounded-md space-y-2">
+        <h1 class="text-green-900 font-bold bg-yellow-300 text-center rounded-md p-2">SHS</h1>
 
         {% for shs in shs_building %}
 
         <ul>
-            <a href="{% url 'floor_level' shs.id %}"><li>{{ shs.floor }}</li></a>
+            <a href="{% url 'floor_level' shs.id %}"><li class="text-green-900 text-center font-bold">{{ shs.floor }}</li></a>
 
         </ul>
 
@@ -34,18 +35,19 @@
 
     </div>
 
-    <div>
-        <h1>Annex</h1>
+    <div class="bg-white p-16 shadow-lg text-2xl rounded-md space-y-2">
+        <h1 class="text-green-900 font-bold bg-yellow-300 text-center rounded-md p-2">Annex</h1>
 
         {% for annex in annex_building %}
 
         <ul>
-            <a href="{% url 'floor_level' annex.id %}"><li>{{ annex.floor }}</li></a>
+            <a href="{% url 'floor_level' annex.id %}"><li class="text-green-900 text-center font-bold">{{ annex.floor }}</li></a>
 
         </ul>
 
         {% endfor %}
 
     </div>
+   </div>
 </div>
 {% endblock content %}

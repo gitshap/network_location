@@ -10,7 +10,7 @@
 
     {% for switch in switches %}
 
-    <div class="flex flex-col ">
+    <div class="flex flex-col">
         {{ switch.name }}
         <hr>
         Computers
@@ -21,12 +21,12 @@
             {% csrf_token %}
       
       
-            <div class="flex flex-col space-y-3" id="results">
+            <div class="flex space-y-32" id="results">
 
-                <div class="flex flex-col bg-white p-2 shadow-md space-y-1  border border-red-300">
-                    <div class="flex flex-col"> {{ computer.pc_name }}</div>
+                <div class="flex bg-white p-2 flex-col shadow-md border border-red-300">
+                    <div class="flex space-x-3"> {{ computer.pc_name }}</div>
                     <button hx-post="{% url 'ping' computer.id %}" hx-swap="outerHTML" hx-target="#results"
-                        hx-indicator=".htmx-indicator" class="bg-green-300 p-2 rounded shadow-sm text-center">Check
+                        hx-indicator=".htmx-indicator" class="text-green-900 p-2 bg-yellow-300 font-bold rounded shadow-sm text-center">Check
                         ping</button>
                     <div>
     
